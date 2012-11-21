@@ -51,11 +51,6 @@ import org.jets3t.service.security.GSCredentials;
  * @author Ben Hale
  */
 public class SimpleStorageServiceWagon extends AbstractWagon {
-
-    private String AMAZON_URL = "s3.amazonaws.com";
-
-    private String GOOGLE_URL = "commondatastorage.googleapis.com";
-
     private RestStorageService service;
 
     private String bucket;
@@ -69,24 +64,9 @@ public class SimpleStorageServiceWagon extends AbstractWagon {
     protected void connectToRepository(Repository source, AuthenticationInfo authenticationInfo, ProxyInfoProvider proxyInfoProvider)
             throws AuthenticationException {
         try {
-            String provider = null;
-            bucket = source.getUsername();
-            if (bucket == null || "".equals(bucket)) {
-                bucket = source.getHost();
-                provider = AMAZON_URL;
-            } else {
-                provider = source.getHost();
-            }
-
+            bucket = source.getHost();
             Credentials c = getCredentials(authenticationInfo);
-            if (AMAZON_URL.equals(provider)) {
-                service = new RestS3Service(new AWSCredentials(c.access, c.secret));
-            } else if (GOOGLE_URL.equals(provider)) {
-                service = new GoogleStorageService(new GSCredentials(c.access, c.secret));
-            } else {
-                throw new IllegalArgumentException("Private Clouds not supported yet. Use s3://bucketname@" + AMAZON_URL + " or s3://bucketname@" + GOOGLE_URL);
-            }
-
+            service = new GoogleStorageService(new GSCredentials(c.access, c.secret));
         } catch (ServiceException e) {
             throw new AuthenticationException("Cannot authenticate with current credentials", e);
         }

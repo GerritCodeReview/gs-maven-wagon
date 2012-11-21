@@ -1,13 +1,12 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.anzix.aws</groupId>
-    <artifactId>s3-maven-wagon</artifactId>
+    <groupId>com.googlesource.gerrit</groupId>
+    <artifactId>gs-maven-wagon</artifactId>
     <packaging>jar</packaging>
-    <name>Amazon S3/Google Developer Storage Maven Wagon Support</name>
-    <version>3.3-SNAPSHOT</version>
-    <description>Standard Maven wagon support for s3:// urls (forked from the Spring version)</description>
-    <url>https://github.com/elek/s3-maven-wagon/admin</url>
+    <name>Google Developer Storage Maven Wagon Support</name>
+    <version>3.3</version>
+    <description>Standard Maven wagon support for gs:// urls</description>
     <inceptionYear>2007</inceptionYear>
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -28,6 +27,9 @@
                 <role>small modifications on this fork</role>
             </roles>
         </developer>
+        <developer>
+            <name>Shawn Pearce</name>
+        </developer>
     </developers>
     <licenses>
         <license>
@@ -36,19 +38,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <scm>
-        <connection>scm:git:git@github.com:elek/s3-maven-wagon.git</connection>
-        <url>scm:git:git@github.com:elek/s3-maven-wagon.git</url>
-        <developerConnection>scm:git:git@github.com:elek/s3-maven-wagon.git</developerConnection>
-    </scm>
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.springframework.build.aws</groupId>
-                <artifactId>org.springframework.build.aws.maven</artifactId>
-                <version>2.0.0.RELEASE</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -58,31 +48,8 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-            
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     <dependencies>
         <dependency>
             <groupId>commons-httpclient</groupId>
@@ -93,7 +60,7 @@
         <dependency>
             <groupId>net.java.dev.jets3t</groupId>
             <artifactId>jets3t</artifactId>
-            <version>0.8.0</version>
+            <version>0.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.wagon</groupId>
@@ -102,5 +69,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-  
 </project>
